@@ -20,6 +20,7 @@ public class Driver {
     private static WebDriver driver;
 
     public static WebDriver get() {
+        DriverOptions driverOptions = new DriverOptions();
         // Test
         if (driver == null) {
             // this line will tell which browser should open based on the value from properties file
@@ -61,6 +62,13 @@ public class Driver {
                     WebDriverManager.getInstance(SafariDriver.class).setup();
                     driver = new SafariDriver();
                     break;
+
+                case "iPhone X":
+                    if (browser.equals("iPhone X") || browser.equals("iPhone 6/7/8") || browser.equals("iPad")) {
+                        WebDriverManager.chromedriver().driverVersion("95.0.4638.54").setup();
+                        ChromeOptions mobileOptions = driverOptions.mobileUp(browser);
+                        driver = new ChromeDriver(mobileOptions);
+                    }
             }
 
         }

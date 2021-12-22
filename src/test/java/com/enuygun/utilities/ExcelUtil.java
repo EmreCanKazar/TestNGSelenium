@@ -1,7 +1,6 @@
 package com.enuygun.utilities;
 
 
-
 import org.apache.poi.ss.usermodel.*;
 import org.testng.Assert;
 
@@ -30,7 +29,7 @@ public class ExcelUtil {
             workBook = WorkbookFactory.create(ExcelFile);
             workSheet = workBook.getSheet(sheetName);
             // check if sheet is null or not. null means  sheetname was wrong
-            Assert.assertNotNull(workSheet, "Sheet: \""+sheetName+"\" does not exist\n");
+            Assert.assertNotNull(workSheet, "Sheet: \"" + sheetName + "\" does not exist\n");
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -52,7 +51,7 @@ public class ExcelUtil {
 
         String[][] data = new String[rowCount()][columnCount()];
 
-        for (int i = 0; i <rowCount(); i++) {
+        for (int i = 0; i < rowCount(); i++) {
             for (int j = 0; j < columnCount(); j++) {
                 String value = getCellData(i, j);
                 data[i][j] = value;
@@ -66,12 +65,12 @@ public class ExcelUtil {
     //so we need this format because of data provider.
     public String[][] getDataArrayWithoutFirstRow() {
 
-        String[][] data = new String[rowCount()-1][columnCount()];
+        String[][] data = new String[rowCount() - 1][columnCount()];
 
         for (int i = 1; i < rowCount(); i++) {
             for (int j = 0; j < columnCount(); j++) {
                 String value = getCellData(i, j);
-                data[i-1][j] = value;
+                data[i - 1][j] = value;
             }
         }
         return data;
@@ -143,9 +142,8 @@ public class ExcelUtil {
     }
 
     public int rowCount() {
-        return workSheet.getLastRowNum()+1;
+        return workSheet.getLastRowNum() + 1;
     }
-
 
 
 }

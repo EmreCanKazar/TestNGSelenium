@@ -1,8 +1,15 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Enuygun Automation" verbose="1">
+
+    <listeners>
+
+        <listener class-name="com.enuygun.utilities.failedTestRunners.RetryListenerClass"/>
+
+    </listeners>
+
     <test name="Enuygun Smoke Test">
         <packages>
-            <package name="com.enuygun.tests.pages"></package>
+            <package name="com.enuygun.tests.Mobile.casTests.CarInsurance"></package>
 
         </packages>
     </test>

@@ -26,10 +26,11 @@ public class TestBase {
     protected static ExtentTest extentLogger;
 
     //env set up
-    protected  String url;
+    protected String url;
 
     @BeforeTest
-    public void setUpTest(){
+    public void setUpTest() {
+
         //initialize the class
         report = new ExtentReports();
 
@@ -47,36 +48,37 @@ public class TestBase {
         htmlReporter.config().setReportName("Enuygun Smoke Test");
 
         //set environment information
-        report.setSystemInfo("Environment","QA");
+        report.setSystemInfo("Environment", "QA");
         report.setSystemInfo("Browser", ConfigurationReader.get("browser"));
-        report.setSystemInfo("OS",System.getProperty("os.name"));
+        report.setSystemInfo("OS", System.getProperty("os.name"));
 
     }
 
     @BeforeMethod
     @Parameters("env")
-    public void setUp(@Optional String env){
+    public void setUp(@Optional String env) {
 
         System.out.println("env== " + env);
-        if (env==null){
-            url =ConfigurationReader.get("url");
-        }else{
+        if (env == null) {
+            url = ConfigurationReader.get("browserUrl");
+        } else {
 
-            url = ConfigurationReader.get(env+"_url");
+            url = ConfigurationReader.get(env + "browserUl");
         }
         driver = Driver.get();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         actions = new Actions(driver);
-        wait = new WebDriverWait(driver,10);
+        wait = new WebDriverWait(driver, 10);
         driver.get(url);
 
     }
+
     //ITestResult class describes the result of a test in TestNG
     @AfterMethod
     public void tearDown(ITestResult result) throws InterruptedException, IOException {
         //if test fails
-        if(result.getStatus()==ITestResult.FAILURE){
+        if (result.getStatus() == ITestResult.FAILURE) {
             //record the name of failed test case
             extentLogger.fail(result.getName());
 
@@ -95,12 +97,11 @@ public class TestBase {
     }
 
     @AfterTest
-    public void tearDownTest(){
+    public void tearDownTest() {
         //this is when the report is actually created
         report.flush();
 
     }
-
 
 
 }
